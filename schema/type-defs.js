@@ -9,6 +9,7 @@ const typeDefs = `#graphql
     username: String!
     nationality: Nationality!
     friends:[User]
+    favoriteMovies:[Movie]
   }
   type Movie {
     id:ID!
@@ -22,6 +23,24 @@ const typeDefs = `#graphql
     user(id:ID!):User!
     movies:[Movie!]!
     movie(name:String!):Movie!
+  }
+
+  type Mutation {
+    createUser(input:createUserInput!): User
+    updateUsername(input:updateUsernameInput!):User
+  }
+
+  input updateUsernameInput {
+   id: ID!
+   newUsername:String!
+  }
+
+
+  input createUserInput {
+    name: String!
+    age: Int!
+    username: String!
+    nationality: Nationality = INDIAN # keeping the default value as Indian if there is no nationality key in req.body
   }
 
   enum Nationality {
